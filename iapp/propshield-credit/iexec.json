@@ -1,0 +1,11 @@
+{
+    "name": "propshield-credit",
+    "app": {
+        "owner": "0x3FCC3E2176512651eAa794DEB6f10B1eD0777608",
+        "name": "propshield-credit",
+        "type": "DOCKER",
+        "multiaddr": "registry.hub.docker.com/pratikshirodkar/propshield-credit:latest",
+        "checksum": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "mrenclave": ""
+    }
+}

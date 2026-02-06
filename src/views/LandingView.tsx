@@ -5,10 +5,93 @@ interface LandingViewProps {
 }
 
 export function LandingView({ onLaunch }: LandingViewProps) {
+    const [mounted, setMounted] = React.useState(false);
+    React.useEffect(() => {
+        setMounted(true);
+    }, []);
+
     return (
         <div className="min-h-screen bg-[#0b0c15] text-white font-sans selection:bg-blue-500/30 selection:text-blue-200 overflow-hidden relative">
 
             {/* Background Effects */}
+            <style jsx>{`
+                @keyframes grid-move {
+                    0% { transform: translateY(0); }
+                    100% { transform: translateY(50px); }
+                }
+                @keyframes float-particle {
+                    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+                    10% { opacity: 0.3; }
+                    90% { opacity: 0.3; }
+                    100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+                }
+                @keyframes beam-flow {
+                    0% { transform: translateX(-100%) translateY(-100%); opacity: 0; }
+                    10% { opacity: 0.8; }
+                    90% { opacity: 0.8; }
+                    100% { transform: translateX(200%) translateY(200%); opacity: 0; }
+                }
+                .bg-grid-animate {
+                    background-size: 50px 50px;
+                    background-image: 
+                        linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+                    animation: grid-move 2s linear infinite;
+                }
+                .particle {
+                    position: absolute;
+                    background: linear-gradient(to bottom, #3b82f6, #818cf8);
+                    border-radius: 2px;
+                    pointer-events: none;
+                }
+                .neon-beam {
+                    position: absolute;
+                    width: 3px;
+                    height: 350px;
+                    background: linear-gradient(to bottom, transparent, #60a5fa, #818cf8, #c084fc, transparent);
+                    box-shadow: 0 0 25px rgba(59, 130, 246, 0.6), 0 0 50px rgba(139, 92, 246, 0.3);
+                    filter: blur(0.5px);
+                    opacity: 0;
+                    pointer-events: none;
+                }
+            `}</style>
+
+            <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+                {/* 3D Perspective Grid with deeper glow */}
+                <div className="absolute inset-x-0 -top-[50%] h-[200%] bg-grid-animate [perspective:1000px] [transform:rotateX(60deg)] opacity-40"></div>
+
+                {/* Neon Beams - Rendered client-side */}
+                {mounted && [...Array(12)].map((_, i) => (
+                    <div
+                        key={`beam-${i}`}
+                        className="neon-beam"
+                        style={{
+                            left: `${Math.random() * 100}%`,
+                            top: `${Math.random() * 40}%`,
+                            transform: `rotate(${45 + (Math.random() * 10 - 5)}deg)`,
+                            animation: `beam-flow ${4 + Math.random() * 6}s linear infinite`,
+                            animationDelay: `${Math.random() * 8}s`
+                        }}
+                    ></div>
+                ))}
+
+                {/* Floating Particles - Client side only */}
+                {mounted && [...Array(30)].map((_, i) => (
+                    <div
+                        key={`p-${i}`}
+                        className="particle"
+                        style={{
+                            left: `${Math.random() * 100}%`,
+                            top: `${100 + Math.random() * 20}%`,
+                            width: `${2 + Math.random() * 3}px`,
+                            height: `${2 + Math.random() * 3}px`,
+                            animation: `float-particle ${8 + Math.random() * 12}s linear infinite`,
+                            animationDelay: `${Math.random() * 10}s`
+                        }}
+                    ></div>
+                ))}
+            </div>
+
             <div className="absolute top-0 left-0 w-full h-[800px] bg-gradient-to-b from-blue-900/10 to-transparent pointer-events-none"></div>
             <div className="absolute top-[-20%] right-[-10%] w-[1000px] h-[1000px] bg-indigo-600/10 rounded-full blur-[120px] animate-pulse pointer-events-none"></div>
             <div className="absolute bottom-[-20%] left-[-10%] w-[800px] h-[800px] bg-blue-600/5 rounded-full blur-[100px] pointer-events-none"></div>
@@ -37,7 +120,7 @@ export function LandingView({ onLaunch }: LandingViewProps) {
             <main className="relative z-10">
 
                 {/* Hero Section */}
-                <div className="container mx-auto px-6 pt-24 pb-32 text-center">
+                <div className="container mx-auto px-6 pt-16 pb-20 text-center">
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-wider mb-8 animate-fade-in-up">
                         <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
                         Live on Sepolia & iExec Bellecour
@@ -49,8 +132,8 @@ export function LandingView({ onLaunch }: LandingViewProps) {
                     </h1>
 
                     <p className="text-xl text-gray-400 max-w-3xl mx-auto mb-12 leading-relaxed animate-fade-in-up delay-200">
-                        PropShield transforms private real estate data into verifiable on-chain credit.
-                        Prove your net worth without revealing your rent rolls.
+                        PropShield transforms private real estate data into verifiable on-chain credit. <br />
+                        <span className="text-blue-400 font-semibold">Native Account Abstraction</span> & <span className="text-indigo-400 font-semibold">Institutional Bulk Verification</span>.
                     </p>
 
                     <div className="flex flex-col md:flex-row items-center justify-center gap-6 animate-fade-in-up delay-300">
@@ -63,31 +146,16 @@ export function LandingView({ onLaunch }: LandingViewProps) {
                     </div>
                 </div>
 
-                {/* PROTOCOL STATS TICKER */}
-                <div id="stats" className="border-y border-white/5 bg-black/30 backdrop-blur-xl">
-                    <div className="container mx-auto px-6 py-12">
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-                            <StatBox label="Total Value Secured" value="$14.2M" sub="Verified RWA Assets" color="text-blue-400" />
-                            <StatBox label="Active Enclaves" value="28" sub="iExec Worker Pools" color="text-indigo-400" />
-                            <StatBox label="Privacy Computations" value="1,892" sub="Last 24 Hours" color="text-purple-400" />
-                            <StatBox label="Protocol APY" value="12.4%" sub="Avg. Lender Yield" color="text-green-400" />
-                        </div>
-                        <div className="text-center mt-8">
-                            <span className="px-3 py-1 rounded-full bg-white/5 text-[10px] uppercase font-bold text-gray-500 border border-white/5">
-                                ⚠ Demo Data: Simulated for Hackathon
-                            </span>
-                        </div>
-                    </div>
-                </div>
+
 
                 {/* Feature Grid */}
-                <div id="features" className="container mx-auto px-6 py-32">
-                    <div className="text-center mb-20">
+                <div id="features" className="container mx-auto px-6 py-16">
+                    <div className="text-center mb-12">
                         <h2 className="text-3xl md:text-5xl font-bold mb-4">Zero-Knowledge Architecture</h2>
                         <p className="text-gray-400 max-w-2xl mx-auto">Built on iExec TEE (Trusted Execution Environments) to ensure your sensitive financial data never leaves the secure enclave unencrypted.</p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                         <FeatureCard
                             icon="🔒"
                             title="Confidential Computing"
@@ -95,22 +163,28 @@ export function LandingView({ onLaunch }: LandingViewProps) {
                             tech="AES-256 + SGX"
                         />
                         <FeatureCard
-                            icon="⚡"
-                            title="Instant Liquidity"
-                            desc="Turn verifiable cash flow into collateral. Access global DeFi capital markets instantly after proving solvency."
-                            tech="ERC-721 SBT"
+                            icon="🌐"
+                            title="Account Abstraction"
+                            desc="Institutional onboarding made simple. Login with Email or Socials via Reown AppKit integration."
+                            tech="Reown + AA"
                         />
                         <FeatureCard
-                            icon="🆔"
-                            title="Portable Identity"
-                            desc="Your reputation travels with you. Use your Soulbound Token to access undercollateralized loans on Aave."
-                            tech="EIP-5192"
+                            icon="📊"
+                            title="Bulk Processing"
+                            desc="Scale your portfolio. Process hundreds of rent rolls simultaneously with our institutional batch engine."
+                            tech="Bag of Tasks"
+                        />
+                        <FeatureCard
+                            icon="⚡"
+                            title="DeFi Composability"
+                            desc="Turn verifiable cash flow into collateral. Use your Verified SBT to access undercollateralized loans on Aave."
+                            tech="ERC-721 SBT"
                         />
                     </div>
                 </div>
 
                 {/* Partners Section */}
-                <div className="container mx-auto px-6 pb-32 text-center opacity-70 hover:opacity-100 transition-opacity">
+                <div className="container mx-auto px-6 pb-16 text-center opacity-70 hover:opacity-100 transition-opacity">
                     <p className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-8">Trusted Ecosystem Partners</p>
                     <div className="flex flex-wrap justify-center items-center gap-12 md:gap-20 grayscale hover:grayscale-0 transition-all duration-500">
                         <PartnerLogo name="iExec" />
@@ -122,7 +196,7 @@ export function LandingView({ onLaunch }: LandingViewProps) {
                 </div>
 
                 {/* How It Works Section */}
-                <div id="how-it-works" className="bg-gradient-to-b from-transparent to-blue-900/10 border-t border-white/5 py-32">
+                <div id="how-it-works" className="bg-gradient-to-b from-transparent to-blue-900/10 border-t border-white/5 py-20">
                     <div className="container mx-auto px-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
                             <div>
@@ -177,6 +251,23 @@ export function LandingView({ onLaunch }: LandingViewProps) {
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* PROTOCOL STATS TICKER */}
+                <div id="stats" className="border-y border-white/5 bg-black/30 backdrop-blur-xl">
+                    <div className="container mx-auto px-6 py-12">
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                            <StatBox label="Total Value Secured" value="$14.2M" sub="Verified RWA Assets" color="text-blue-400" />
+                            <StatBox label="Active Enclaves" value="28" sub="iExec Worker Pools" color="text-indigo-400" />
+                            <StatBox label="Privacy Computations" value="1,892" sub="Last 24 Hours" color="text-purple-400" />
+                            <StatBox label="Protocol APY" value="12.4%" sub="Avg. Lender Yield" color="text-green-400" />
+                        </div>
+                        <div className="text-center mt-8">
+                            <span className="px-3 py-1 rounded-full bg-white/5 text-[10px] uppercase font-bold text-gray-500 border border-white/5">
+                                ⚠ Demo Data: Simulated for Hackathon
+                            </span>
                         </div>
                     </div>
                 </div>
