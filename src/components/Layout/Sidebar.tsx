@@ -1,6 +1,6 @@
 import React from 'react';
 
-type View = 'dashboard' | 'factoring' | 'marketplace' | 'portfolio';
+type View = 'dashboard' | 'factoring' | 'marketplace' | 'portfolio' | 'bulk-upload';
 
 interface SidebarProps {
     currentView: View;
@@ -15,6 +15,7 @@ export function Sidebar({ currentView, setView, theme = 'dark', address }: Sideb
         { id: 'factoring', label: 'Factoring Engine', icon: '🏭' },
         { id: 'marketplace', label: 'Loan Marketplace', icon: '💸' },
         { id: 'portfolio', label: 'My Portfolio', icon: '💼' },
+        { id: 'bulk-upload', label: 'Bulk Import', icon: '📂' },
     ];
 
     // Format address for display

@@ -11,6 +11,7 @@ import { DashboardView } from '@/views/DashboardView';
 import { MarketplaceView } from '@/views/MarketplaceView';
 import { PortfolioView } from '@/views/PortfolioView';
 import { FactoringEngineView } from '@/views/FactoringEngineView';
+import { BulkUploadView } from '@/views/BulkUploadView';
 import { OnboardingTour, ViewType } from '@/components/Onboarding/OnboardingTour';
 import { jsPDF } from 'jspdf';
 import {
@@ -568,7 +569,7 @@ export default function Home() {
   // RENDER: LANDING OR SUITE LAYOUT
   // ---------------------------------------------------------
 
-  type ViewState = 'dashboard' | 'factoring' | 'marketplace' | 'portfolio';
+  type ViewState = 'dashboard' | 'factoring' | 'marketplace' | 'portfolio' | 'bulk-upload';
   const [currentView, setCurrentView] = useState<ViewState>('dashboard');
 
   if (!isLaunched) {
@@ -641,6 +642,10 @@ export default function Home() {
           {currentView === 'dashboard' && <DashboardView profile={profile} onNavigate={(v) => setCurrentView(v)} theme={theme} />}
 
           {currentView === 'marketplace' && <MarketplaceView isConnected={isConnected} theme={theme} />}
+
+          {currentView === 'bulk-upload' && (
+            <BulkUploadView theme={theme} />
+          )}
 
           {currentView === 'portfolio' && (
             <PortfolioView

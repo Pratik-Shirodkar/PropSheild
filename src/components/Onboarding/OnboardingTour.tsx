@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export type ViewType = 'dashboard' | 'factoring' | 'marketplace' | 'portfolio';
+export type ViewType = 'dashboard' | 'factoring' | 'marketplace' | 'portfolio' | 'bulk-upload';
 
 interface OnboardingTourProps {
     currentView: ViewType;
