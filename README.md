@@ -1,149 +1,102 @@
-# 🚀 iExec Next.js Starter - Decentralized Data Protection
+# PropShield 🛡️
 
-A minimal starter to quickly get started with iExec DataProtector and Next.js.
+**The Privacy-Preserving Liquidity Marketplace for Real World Assets.**
 
----
-
-## 📋 About
-
-This project is a simple starter that allows you to:
-
-- Connect a Web3 wallet
-- Protect data with iExec DataProtector
-- Grant access to protected data
-- Discover basic iExec features
-
-**Included features:**
-- ✅ Wallet connection with Reown AppKit (WalletConnect)
-- ✅ Data protection with iExec DataProtector
-- ✅ Multi-chain support (iExec Sidechain, Arbitrum)
-- ✅ Simple and clean user interface
-- ✅ Built with Next.js, TypeScript, and Tailwind CSS
+PropShield goes beyond simple "identity badges." We unlock DeFi liquidity for Real Estate owners by using Trusted Execution Environments (TEEs) to mathematically prove income and creditworthiness without *ever* revealing sensitive tenant data.
 
 ---
 
-## 🛠️ Quick Start
+## 🏆 Hack4Privacy Hackathon Submission
 
-1. **Clone the project:**
-```bash
-git clone https://github.com/iExecBlockchainComputing/iexec-nextjs-starter.git
-cd iexec-nextjs-starter
-```
+**Differentiation:**
+Unlike simple verification tools, PropShield is a **dual-sided marketplace** that connects privacy-conscious borrowers with DeFi lenders.
 
-2. **Install dependencies:**
+**The Integrated RWA Protocol for Privacy-First Liquidity.**
+
+PropShield turns hidden real-world solvency (leases, bank history) into on-chain liquidity, without ever leaking sensitive business data. We combine **RWA Tokenization**, **Algorithmic Lending**, and **Portable Identity** into one cohesive architecture.
+
+---
+
+## 🏆 Hack4Privacy Hackathon Submission
+
+**The "Winning" Architecture:**
+We implemented 3 Core Pillars to bridge the trust gap between off-chain assets and on-chain capital.
+
+### 🏛️ Pillar 1: The "Factoring" Engine (RWA Track)
+*Logic: A lease is a promise of future payments (like an invoice).*
+1.  **Confidential Ingestion**: Landlords upload Rent Rolls/Leases (CSV).
+2.  **TEE Verification**: iExec TEEs cryptographically verify the cashflow duration and amount.
+3.  **Result**: Mints a **"Verified Cashflow"** credential (privacy-preserved).
+
+### ⚖️ Pillar 2: The "Solvency" Score (Identity Track)
+*Logic: A lease is useless if the tenant doesn't pay.*
+1.  **Solvency Check**: The TEE cross-references rent rolls with payment history.
+2.  **SBT Minting**: Mints a **Soulbound Token (SBT)** representing the landlord's verified reputation.
+3.  **Tiered Status**: Assigns **Tier A** (100% History) or **Tier B** status on-chain.
+
+### 💧 Pillar 3: The "Liquid" Marketplace (DeFi Track)
+*Logic: This is where the money moves.*
+1.  **Algorithmic Lending**: Smart contracts read the Solvency SBT to verify risk.
+2.  **Lender View**: Lenders browse anonymized "Cashflow Opportunities".
+3.  **Trustless Funding**: Capital is deployed based on verified TEE proofs (80% LTV for Tier A).
+
+---
+
+## 🛠️ Tech Stack
+
+-   **Frontend**: Next.js 16 (Turbopack), React 19, TypeScript, Tailwind CSS
+-   **Confidential Computing**: iExec SDK (`@iexec/dataprotector`), iExec Bellecour Sidechain
+-   **Blockchain**: Ethereum Sepolia (L1) for Lending Contract, iExec Bellecour (L2) for TEE
+-   **Smart Contracts**: Solidity (ERC721 SBT, Lending Logic), Hardhat
+-   **Wallet**: Wagmi v2, Reown AppKit
+
+---
+
+## 🏗️ Architecture
+
+1.  **User** uploads `rent_roll.csv` → Encrypted via iExec SDK.
+2.  **User** grants access to the `PropShield Scorer` iApp (TEE).
+3.  **iApp** runs in an enclave, decrypts data, calculates Score/NOI, and posts the result to the Oracle.
+4.  **PropShieldLending** contract updates the on-chain Credit Limit.
+5.  **Frontend** reflects the new limit, unlocks SBT minting, and generates the PDF report.
+
+---
+
+## 🚦 How to Run Locally
+
+### Prerequisites
+- Node.js v18+
+- MetaMask Wallet with Sepolia ETH and iExec RLC (Testnet)
+
+### Installation
 ```bash
+git clone https://github.com/your-username/propshield.git
+cd propshield
 npm install
 ```
 
-3. **Create your Reown project:**
-   - Go to [https://cloud.reown.com/app](https://cloud.reown.com/app)
-   - Create a project and choose **AppKit** → **Next.js**
-
-4. **Configure environment variables:**
-```bash
-# Create a .env.local file
-NEXT_PUBLIC_REOWN_PROJECT_ID=your_reown_project_id
+### Environment Setup
+Create a `.env` file:
+```env
+NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID=your_reown_project_id
+NEXT_PUBLIC_CONTRACT_ADDRESS=0x4bacd464de5e50fcc978345df4be83dc14c8a888
+PRIVATE_KEY=your_wallet_private_key
 ```
 
-5. **Start the project:**
+### Run
 ```bash
 npm run dev
 ```
-
-Your app will be available at [http://localhost:3000](http://localhost:3000)
-
----
-
-## 🧩 Compatible Wallets
-
-iExec Bellecour only works with these wallets:
-
-- MetaMask
-- Coinbase Wallet
-- Brave Wallet  
-- WalletConnect
-- Zerion
-
-❌ Other wallets may not work with iExec SDKs on Bellecour.
+Open [http://localhost:3000](http://localhost:3000)
 
 ---
 
-## 📁 Project Structure
+## 📜 Contract Addresses
 
-```
-src/
-├── app/
-│   ├── page.tsx          # Main page with iExec logic
-│   ├── layout.tsx        # Global layout
-│   └── globals.css       # Global styles
-├── components/
-│   └── WelcomeBlock.tsx  # Welcome component
-├── config/
-│   ├── wagmiConfig.ts    # Wagmi/Reown configuration
-│   └── wagmiNetworks.ts  # Supported blockchain networks
-└── context/
-    └── index.tsx         # Global providers
-```
+-   **Lending Contract (Sepolia):** `0x4bacd464de5e50fcc978345df4be83dc14c8a888`
+-   **TEE Application (Bellecour):** `0xa1974676795629B7c6cD9A8b17fD27fDdA78ad41`
 
 ---
 
-## 🔍 How It Works
-
-### Data Protection
-1. **Connection:** Use Reown AppKit to connect your wallet
-2. **Protection:** Enter data name and content to protect
-3. **iExec:** Data is encrypted and stored via DataProtector
-4. **Result:** You receive the address and metadata of protected data
-
----
-
-## 🌐 Supported Networks
-
-- **iExec Sidechain (Bellecour)** - Chain ID: 134
-- **Arbitrum One** - Chain ID: 42161
-- **Arbitrum Sepolia** - Chain ID: 421614
-
----
-
-## 🚀 Next Steps
-
-This starter is intentionally minimal. You can extend it with:
-
-- More iExec features (compute, marketplace, Web3Mail)
-- Advanced data management interface
-- Protected dataset marketplace
-- Integration with other iExec services
-- Custom iExec applications
-- Data monetization features
-
----
-
-## 📚 Resources
-
-- [iExec Documentation](https://docs.iex.ec/)
-- [iExec DataProtector API](https://docs.iex.ec/references/dataProtector)
-- [Reown AppKit Documentation](https://docs.reown.com/appkit/next/core/installation)
-- [Next.js Documentation](https://nextjs.org/docs)
-- [React Documentation](https://react.dev/)
-
----
-
-## 🔧 Development
-
-```bash
-# Development server
-npm run dev
-
-# Build for production
-npm run build
-
-# Start production server
-npm start
-
-# Lint code
-npm run lint
-```
-
----
-
-**Happy coding with iExec! 🔒✨**
+## 🎥 Demo
+[Link to Demo Video]

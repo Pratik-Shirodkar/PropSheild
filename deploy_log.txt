@@ -1,0 +1,8 @@
+[dotenv@17.2.3] injecting env (3) from .env -- tip: 🔄 add secrets lifecycle management: https://dotenvx.com/ops
+[dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  suppress all logs with { quiet: true }
+Deploying PropShieldLending...
+PropShieldLending deployed to 0xF0E4555112155272d87BF8E54F7095327b2cf3c7
+----------------------------------------------------
+NEXT STEPS:
+1. Update your frontend NEXT_PUBLIC_CONTRACT_ADDRESS with: 0xF0E4555112155272d87BF8E54F7095327b2cf3c7
+----------------------------------------------------

@@ -2,9 +2,10 @@ import {
   type AppKitNetwork,
   arbitrumSepolia,
   arbitrum,
+  sepolia,
 } from '@reown/appkit/networks';
 
-export { arbitrumSepolia, arbitrum } from '@reown/appkit/networks';
+export { arbitrumSepolia, arbitrum, sepolia } from '@reown/appkit/networks';
 
 export const bellecour: AppKitNetwork = {
   id: 0x86,
@@ -32,12 +33,14 @@ export const explorerSlugs: Record<number, string> = {
   134: 'bellecour', // iExec Sidechain (Bellecour)
   42161: 'arbitrum-mainnet', // Arbitrum One
   421614: 'arbitrum-sepolia-testnet', // Arbitrum Sepolia
+  11155111: 'sepolia', // Sepolia
 };
 
 const wagmiNetworks = {
   bellecour,
   arbitrumSepolia,
   arbitrum,
+  sepolia,
 };
 
 export default wagmiNetworks;
