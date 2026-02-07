@@ -1,5 +1,3 @@
-# Feedback & Roadmap
-
 ## 🚀 Future Roadmap
 
 ### 1. Gasless Verification (Account Abstraction)
@@ -19,7 +17,3 @@ Move beyond simple loans to **Tokenized Debt Positions**.
 
 ### 4. Confidential Insurance
 Integrate with insurance protocols where the TEE verifies **Property Insurance Coverage** to automatically lower interest rates for insured assets.
-
-## 💡 Feedback for iExec
-*   **Developer Experience**: The `DataProtector` SDK is powerful but could benefit from more explicit "Gasless" / Meta-transaction examples in the documentation.
-*   **Performance**: TEE initialization time is acceptable but optimizing the "cold start" would improve UI responsiveness.
